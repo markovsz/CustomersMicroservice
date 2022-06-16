@@ -6,6 +6,7 @@ namespace Messager.Customers.Domain.Core.Models
     {
         public Guid Id { get; set; }
         public Guid UserId { get; set; }
+        public string CustomerTag { get; set; } //tag for search
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Patronymic { get; set; }
