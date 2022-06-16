@@ -11,7 +11,7 @@ namespace Messager.Customers.Application.Services.Services
     {
         IEnumerable<CustomerForReadDto> GetCustomers();
         CustomerForReadDto GetCustomerById(Guid id);
-        CustomerForReadDto GetCustomerByUserName(string userName);
+        CustomerForReadDto GetCustomerByTag(string tag);
         void CreateCustomer(CustomerForCreateDto customerDto);
     }
 }
