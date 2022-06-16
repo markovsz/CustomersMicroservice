@@ -9,12 +9,12 @@ namespace Messager.Customers.Domain.Interfaces.Repositories
     {
         public interface ICustomersRepository
         {
-            Task<IEnumerable<Customer>> GetCustomers();
-            Task<Customer> GetCustomerById(Guid id);
-            Task<Customer> GetCustomerByTag(string tag);
-            Task CreateCustomer(Customer customer);
-            Task UpdateCustomer(Customer customer);
-            Task DeleteCustomer(Customer customer);
+            Task<IEnumerable<Customer>> GetCustomersAsync();
+            Task<Customer> GetCustomerByIdAsync(Guid id, bool trackChanges);
+            Task<Customer> GetCustomerByTagAsync(string tag, bool trackChanges);
+            Task CreateCustomerAsync(Customer customer);
+            void UpdateCustomer(Customer customer);
+            void DeleteCustomer(Customer customer);
         }
     }
 }
