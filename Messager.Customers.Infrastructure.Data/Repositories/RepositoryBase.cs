@@ -22,7 +22,7 @@ namespace Messager.Customers.Infrastructure.Data.Repositories
         public void Delete(T entity) => 
             _context.Remove(entity);
 
-        public IQueryable<T> FinbByCondition(Expression<Func<T, bool>> expression, bool trackChanges) =>
+        public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression, bool trackChanges) =>
             (trackChanges ? _context.Set<T>().Where(expression) :
                             _context.Set<T>().Where(expression).AsNoTracking());
 
