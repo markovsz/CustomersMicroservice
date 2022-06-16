@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
-namespace Messager.Customers.Domain.Interfaces.Repositories.AdministratorSubsystem
+namespace Messager.Customers.Domain.Interfaces.Repositories
 {
-    public interface IAdministratorManager
+    namespace AdministratorSubsystem
     {
-        ICustomersRepository Customers { get; }
-        Task SaveAsync();
+        public interface IAdministratorManager
+        {
+            ICustomersRepository Customers { get; }
+            Task SaveAsync();
+        }
     }
 }

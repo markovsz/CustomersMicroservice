@@ -1,12 +1,20 @@
-﻿using System;
+﻿using Messager.Customers.Domain.Core.Models;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
-namespace Messager.Customers.Domain.Interfaces.Repositories.CustomerSubsystem
+namespace Messager.Customers.Domain.Interfaces.Repositories
 {
-    public interface ICustomersRepository
+    namespace CustomerSubsystem
     {
+        public interface ICustomersRepository
+        {
+            Task<IEnumerable<Customer>> GetCustomers();
+            Task<Customer> GetCustomerById(Guid id);
+            Task<Customer> GetCustomerByTag(string tag);
+            Task CreateCustomer(Customer customer);
+            Task UpdateCustomer(Customer customer);
+            Task DeleteCustomer(Customer customer);
+        }
     }
 }
