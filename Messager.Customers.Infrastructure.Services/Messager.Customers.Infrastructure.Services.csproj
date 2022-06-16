@@ -1,11 +1,16 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Messager.Customers.Application.Services\Messager.Customers.Application.Services.csproj" />
+    <ProjectReference Include="..\Messager.Customers.Domain.Interfaces\Messager.Customers.Domain.Interfaces.csproj" />
   </ItemGroup>
 
 </Project>
