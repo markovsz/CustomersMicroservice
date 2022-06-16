@@ -9,9 +9,8 @@ namespace Messager.Customers.Application.Services.Services
 {
     public interface IAdministratorService
     {
-        IEnumerable<CustomerForReadDto> GetCustomers();
-        CustomerForReadDto GetCustomerById(Guid id);
-        CustomerForReadDto GetCustomerByTag(string tag);
-        void CreateCustomer(CustomerForCreateDto customerDto);
+        Task<IEnumerable<CustomerForReadDto>> GetCustomersAsync();
+        Task<CustomerForReadDto> GetCustomerByIdAsync(Guid id, bool trackChanges);
+        Task<CustomerForReadDto> GetCustomerByTagAsync(string tag, bool trackChanges);
     }
 }

@@ -1,15 +1,43 @@
-﻿using Messager.Customers.Application.Services.Services;
+﻿using AutoMapper;
+using Messager.Customers.Application.Services.DataTransferObjects;
+using Messager.Customers.Application.Services.Services;
 using Messager.Customers.Domain.Interfaces.Repositories.CustomerSubsystem;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Messager.Customers.Infrastructure.Services.Services
 {
     public class CustomerService : ICustomerService
     {
         private ICustomerManager _customerManager;
+        private IMapper _mapper;
 
-        public CustomerService(ICustomerManager customerManager)
+        public CustomerService(ICustomerManager customerManager, IMapper mapper)
         {
             _customerManager = customerManager;
+            _mapper = mapper;
+        }
+
+        public async Task<CustomerForReadDto> GetCustomerByIdAsync(Guid id, bool trackChanges)
+        {
+            var customer = await _customerManager.Customers.GetCustomerByIdAsync(id, trackChanges);
+            var customerDto = _mapper.Map<CustomerForReadDto>(customer);
+            return customerDto;
+        }
+
+        public async Task<CustomerForReadDto> GetCustomerByTagAsync(string tag, bool trackChanges)
+        {
+            var customer = await _customerManager.Customers.GetCustomerByTagAsync(tag, trackChanges);
+            var customerDto = _mapper.Map<CustomerForReadDto>(customer);
+            return customerDto;
+        }
+
+        public async Task<IEnumerable<CustomerForReadDto>> GetCustomersAsync()
+        {
+            var customers = await _customerManager.Customers.GetCustomersAsync();
+            var customersDto = _mapper.Map<IEnumerable<CustomerForReadDto>>(customers);
+            return customersDto;
         }
     }
 }

@@ -5,6 +5,7 @@ using Messager.Customers.Domain.Core.Models;
 using Messager.Customers.Domain.Interfaces.Repositories.AdministratorSubsystem;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Messager.Customers.Infrastructure.Services.Services
 {
@@ -18,29 +19,23 @@ namespace Messager.Customers.Infrastructure.Services.Services
             _administratorManager = administratorManager;
         }
 
-        public void CreateCustomer(CustomerForCreateDto customerDto)
+        public async Task<CustomerForReadDto> GetCustomerByIdAsync(Guid id, bool trackChanges)
         {
-            var customer = _mapper.Map<Customer>(customerDto);
-            _administratorManager.Customers.CreateCustomer(customer);
-        }
-
-        public CustomerForReadDto GetCustomerById(Guid id)
-        {
-            var customer = _administratorManager.Customers.GetCustomerById(id);
+            var customer = await _administratorManager.Customers.GetCustomerByIdAsync(id, trackChanges);
             var customerDto = _mapper.Map<CustomerForReadDto>(customer);
             return customerDto;
         }
 
-        public CustomerForReadDto GetCustomerByTag(string userName)
+        public async Task<CustomerForReadDto> GetCustomerByTagAsync(string tag, bool trackChanges)
         {
-            var customer = _administratorManager.Customers.GetCustomerByTag(userName);
+            var customer = await _administratorManager.Customers.GetCustomerByTagAsync(tag, trackChanges);
             var customerDto = _mapper.Map<CustomerForReadDto>(customer);
             return customerDto;
         }
 
-        public IEnumerable<CustomerForReadDto> GetCustomers()
+        public async Task<IEnumerable<CustomerForReadDto>> GetCustomersAsync()
         {
-            var customer = _administratorManager.Customers.GetCustomers();
+            var customer = await _administratorManager.Customers.GetCustomersAsync();
             var customerDto = _mapper.Map<IEnumerable<CustomerForReadDto>>(customer);
             return customerDto;
         }
