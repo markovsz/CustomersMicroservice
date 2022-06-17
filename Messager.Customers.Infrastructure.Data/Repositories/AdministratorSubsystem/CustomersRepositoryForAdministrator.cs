@@ -9,9 +9,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Messager.Customers.Infrastructure.Data.Repositories.AdministratorSubsystem
 {
-    public class CustomersRepository : RepositoryBase<Customer>, ICustomersRepository
+    public class CustomersRepositoryForAdministrator : RepositoryBase<Customer>, ICustomersRepositoryForAdministrator
     {
-        public CustomersRepository(RepositoryContext context)
+        public CustomersRepositoryForAdministrator(RepositoryContext context)
             : base(context)
         {
         }

@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace Messager.Customers.Infrastructure.Data.Repositories.GuestSubsystem
 {
-    public class CustomersRepository : RepositoryBase<Customer>, ICustomersRepository
+    public class CustomersRepositoryForGuest : RepositoryBase<Customer>, ICustomersRepositoryForGuest
     {
-        public CustomersRepository(RepositoryContext context)
+        public CustomersRepositoryForGuest(RepositoryContext context)
             : base(context)
         {
         }

@@ -8,7 +8,7 @@ namespace Messager.Customers.Domain.Interfaces.Repositories.IGuestSubsystem
 {
     public interface IGuestManager
     {
-        ICustomersRepository Customers { get; }
+        ICustomersRepositoryForGuest Customers { get; }
         Task SaveAsync();
     }
 }

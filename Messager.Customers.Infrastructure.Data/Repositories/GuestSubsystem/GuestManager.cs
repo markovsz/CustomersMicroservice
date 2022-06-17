@@ -9,7 +9,7 @@ namespace Messager.Customers.Infrastructure.Data.Repositories.GuestSubsystem
 {
     public class GuestManager : IGuestManager
     {
-        private ICustomersRepository _customersRepository;
+        private ICustomersRepositoryForGuest _customersRepository;
         private RepositoryContext _context;
 
         public GuestManager(RepositoryContext context)
@@ -17,12 +17,12 @@ namespace Messager.Customers.Infrastructure.Data.Repositories.GuestSubsystem
             _context = context;
         }
 
-        public ICustomersRepository Customers
+        public ICustomersRepositoryForGuest Customers
         {
             get
             {
                 if (_customersRepository is null)
-                    _customersRepository = new CustomersRepository(_context);
+                    _customersRepository = new CustomersRepositoryForGuest(_context);
                 return _customersRepository;
             }
         }

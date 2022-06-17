@@ -6,7 +6,7 @@ namespace Messager.Customers.Domain.Interfaces.Repositories
     {
         public interface ICustomerManager
         {
-            ICustomersRepository Customers { get; }
+            ICustomersRepositoryForCustomer Customers { get; }
             Task SaveAsync();
         }
     }

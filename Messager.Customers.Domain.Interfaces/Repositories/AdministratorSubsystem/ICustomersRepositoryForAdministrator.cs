@@ -7,7 +7,7 @@ namespace Messager.Customers.Domain.Interfaces.Repositories
 {
     namespace AdministratorSubsystem
     {
-        public interface ICustomersRepository
+        public interface ICustomersRepositoryForAdministrator
         {
             Task<IEnumerable<Customer>> GetCustomersAsync();
             Task<Customer> GetCustomerByIdAsync(Guid id, bool trackChanges);

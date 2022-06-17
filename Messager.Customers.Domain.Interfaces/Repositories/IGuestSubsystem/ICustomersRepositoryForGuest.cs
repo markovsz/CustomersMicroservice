@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Messager.Customers.Domain.Interfaces.Repositories.IGuestSubsystem
 {
-    public interface ICustomersRepository
+    public interface ICustomersRepositoryForGuest
     {
         Task CreateCustomerAsync(Customer customer);
     }

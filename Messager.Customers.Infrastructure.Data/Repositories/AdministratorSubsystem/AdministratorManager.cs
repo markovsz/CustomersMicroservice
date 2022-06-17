@@ -10,19 +10,19 @@ namespace Messager.Customers.Infrastructure.Data.Repositories.AdministratorSubsy
     public class AdministratorManager : IAdministratorManager
     {
         private RepositoryContext _context;
-        private ICustomersRepository _customersRepository;
+        private ICustomersRepositoryForAdministrator _customersRepository;
 
         public AdministratorManager(RepositoryContext context)
         {
             _context = context;
         }
 
-        public ICustomersRepository Customers
+        public ICustomersRepositoryForAdministrator Customers
         {
             get
             {
                 if (_customersRepository is null)
-                    _customersRepository = new CustomersRepository(_context);
+                    _customersRepository = new CustomersRepositoryForAdministrator(_context);
                 return _customersRepository;
             }
         }
