@@ -29,6 +29,7 @@ namespace Messager.Customers.API
             services.ConfigureRepositories();
             services.AddAutoMapper(typeof(MappingProfile));
             services.ConfigureServices();
+            services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,10 +44,7 @@ namespace Messager.Customers.API
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });
+                endpoints.MapControllers();
             });
         }
     }
