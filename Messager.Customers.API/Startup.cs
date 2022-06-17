@@ -28,6 +28,7 @@ namespace Messager.Customers.API
             services.ConfigureDbContext(_configuration);
             services.ConfigureRepositories();
             services.AddAutoMapper(typeof(MappingProfile));
+            services.ConfigureLogger();
             services.ConfigureServices();
             services.AddControllers();
         }

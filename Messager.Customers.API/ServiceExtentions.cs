@@ -1,10 +1,12 @@
-﻿using Messager.Customers.Domain.Interfaces.Repositories.AdministratorSubsystem;
+﻿using Messager.Customers.Application.Services;
+using Messager.Customers.Domain.Interfaces.Repositories.AdministratorSubsystem;
 using Messager.Customers.Domain.Interfaces.Repositories.CustomerSubsystem;
 using Messager.Customers.Domain.Interfaces.Repositories.IGuestSubsystem;
 using Messager.Customers.Infrastructure.Data;
 using Messager.Customers.Infrastructure.Data.Repositories.AdministratorSubsystem;
 using Messager.Customers.Infrastructure.Data.Repositories.CustomerSubsystem;
 using Messager.Customers.Infrastructure.Data.Repositories.GuestSubsystem;
+using Messager.Customers.Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -34,6 +36,11 @@ namespace Messager.Customers.API
             services.AddScoped<IAdministratorManager, AdministratorManager>();
             services.AddScoped<ICustomerManager, CustomerManager>();
             services.AddScoped<IGuestManager, GuestManager>();
+        }
+
+        public static void ConfigureLogger(this IServiceCollection services)
+        {
+            services.AddScoped<ILoggerManager, LoggerManager>();
         }
     }
 }
