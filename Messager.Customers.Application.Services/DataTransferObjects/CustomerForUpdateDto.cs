@@ -2,7 +2,7 @@
 
 namespace Messager.Customers.Application.Services.DataTransferObjects
 {
-    public class CustomerForCreateDto
+    public class CustomerForUpdateDto
     {
         public string UserName { get; set; }
         public string CustomerTag { get; set; } //tag for search

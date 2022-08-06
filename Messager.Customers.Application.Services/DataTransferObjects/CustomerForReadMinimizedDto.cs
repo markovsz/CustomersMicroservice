@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Messager.Customers.Application.Services.DataTransferObjects
 {
-    public class CustomerForReadDto
+    public class CustomerForReadMinimizedDto
     {
+        public Guid UserId { get; set; }
+        public string UserName { get; set; }
     }
 }

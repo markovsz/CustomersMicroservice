@@ -1,17 +1,12 @@
-﻿using Messager.Customers.Application.Services;
+﻿using Messager.Customers.Application.Services.Services;
 using NLog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Messager.Customers.Infrastructure.Services
+namespace Messager.Customers.Infrastructure.Services.Services
 {
-    public class LoggerManager : ILoggerManager
+    public class LoggerService : ILoggerService
     {
         private static ILogger logger = LogManager.GetCurrentClassLogger();
-        public LoggerManager()
+        public LoggerService()
         {
         }
         public void LogDebug(string message)

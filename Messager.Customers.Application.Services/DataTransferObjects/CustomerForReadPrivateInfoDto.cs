@@ -2,8 +2,9 @@
 
 namespace Messager.Customers.Application.Services.DataTransferObjects
 {
-    public class CustomerForCreateDto
+    public class CustomerForReadPrivateInfoDto
     {
+        public Guid UserId { get; set; }
         public string UserName { get; set; }
         public string CustomerTag { get; set; } //tag for search
         public string FirstName { get; set; }
