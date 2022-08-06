@@ -4,8 +4,8 @@ namespace Messager.Customers.Domain.Core.Models
 {
     public class Customer
     {
-        public Guid Id { get; set; }
         public Guid UserId { get; set; }
+        public string UserName { get; set; }
         public string CustomerTag { get; set; } //tag for search
         public string FirstName { get; set; }
         public string LastName { get; set; }
