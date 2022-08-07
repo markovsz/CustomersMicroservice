@@ -1,14 +1,8 @@
-using Messager.Customers.Infrastructure.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Messager.Customers.API
 {
@@ -28,7 +22,8 @@ namespace Messager.Customers.API
             services.ConfigureDbContext(_configuration);
             services.ConfigureRepositories();
             services.AddAutoMapper(typeof(MappingProfile));
-            services.ConfigureLogger();
+            services.ConfigureJwt(_configuration);
+            services.ConfigureFilters();
             services.ConfigureServices();
             services.AddControllers();
         }
@@ -42,6 +37,9 @@ namespace Messager.Customers.API
             }
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
