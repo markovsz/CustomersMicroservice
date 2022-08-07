@@ -1,15 +1,17 @@
-﻿using Messager.Customers.Application.Services;
-using Messager.Customers.Domain.Interfaces.Repositories.AdministratorSubsystem;
-using Messager.Customers.Domain.Interfaces.Repositories.CustomerSubsystem;
-using Messager.Customers.Domain.Interfaces.Repositories.IGuestSubsystem;
+﻿using Messager.Customers.API.Filters;
+using Messager.Customers.Application.Services.Services;
+using Messager.Customers.Domain.Interfaces;
+using Messager.Customers.Domain.Interfaces.Repositories;
 using Messager.Customers.Infrastructure.Data;
-using Messager.Customers.Infrastructure.Data.Repositories.AdministratorSubsystem;
-using Messager.Customers.Infrastructure.Data.Repositories.CustomerSubsystem;
-using Messager.Customers.Infrastructure.Data.Repositories.GuestSubsystem;
-using Messager.Customers.Infrastructure.Services;
+using Messager.Customers.Infrastructure.Data.Repositories;
+using Messager.Customers.Infrastructure.Services.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Text;
 
 namespace Messager.Customers.API
 {
@@ -18,29 +20,48 @@ namespace Messager.Customers.API
         public static void ConfigureDbContext(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<RepositoryContext>(options => options.UseSqlServer(configuration.GetConnectionString("sqlConnection"),
-                b => b.MigrationsAssembly("Messager_Customers")));
+                b => b.MigrationsAssembly("Messager.Customers.Infrastructure.Data")));
         }
 
         public static void ConfigureRepositories(this IServiceCollection services)
         {
-            services.AddScoped<IAdministratorManager, AdministratorManager>();
-            services.AddScoped<ICustomersRepositoryForAdministrator, CustomersRepositoryForAdministrator>();
-            services.AddScoped<ICustomerManager, CustomerManager>();
-            services.AddScoped<ICustomersRepositoryForCustomer, CustomersRepositoryForCustomer>();
-            services.AddScoped<IGuestManager, GuestManager>();
-            services.AddScoped<ICustomersRepositoryForGuest, CustomersRepositoryForGuest>();
+            services.AddScoped<IRepositoryManager, RepositoryManager>();
+            services.AddScoped<ICustomersRepository, CustomersRepository>();
         }
 
         public static void ConfigureServices(this IServiceCollection services)
         {
-            services.AddScoped<IAdministratorManager, AdministratorManager>();
-            services.AddScoped<ICustomerManager, CustomerManager>();
-            services.AddScoped<IGuestManager, GuestManager>();
+            services.AddScoped<ICustomersService, CustomerService>();
+            services.AddScoped<ILoggerService, LoggerService>();
         }
 
-        public static void ConfigureLogger(this IServiceCollection services)
+        public static void ConfigureFilters(this IServiceCollection services)
         {
-            services.AddScoped<ILoggerManager, LoggerManager>();
+            services.AddScoped<ExtractUserIdFilter>();
+            services.AddScoped<ExtractRoleFilter>();
+        }
+
+        public static void ConfigureJwt(this IServiceCollection services, IConfiguration configuration)
+        {
+            var jwtSettings = configuration.GetSection("JwtSettings");
+            var secretKey = Environment.GetEnvironmentVariable("SECRET");
+            services.AddAuthentication(opt => {
+                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = jwtSettings.GetSection("validIssuer").Value,
+                    ValidAudience = jwtSettings.GetSection("validAudience").Value,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
+                };
+            });
         }
     }
 }
