@@ -9,7 +9,7 @@ namespace Messager.Customers.Application.Services.Services
     {
         Task<CustomerForReadPublicInfoDto> CreateCustomerAsync(Guid userId, CustomerForCreateDto customerDto);
         Task<IEnumerable<CustomerForReadPublicInfoDto>> GetCustomersAsync();
-        IEnumerable<CustomerForReadMinimizedDto> GetMinimizedCustomersInfoByUserIds(IEnumerable<Guid> userIds);
+        Task<IEnumerable<CustomerForReadMinimizedDto>> GetMinimizedCustomersInfoByUserIdsAsync(IEnumerable<Guid> userIds);
         Task<CustomerForReadPrivateInfoDto> GetCustomerByUserIdAsync(Guid userId, bool trackChanges);
         Task<CustomerForReadPublicInfoDto> GetCustomerByTagAsync(string tag, bool trackChanges);
         Task UpdateCustomerAsync(Guid userId, CustomerForUpdateDto customerDto);

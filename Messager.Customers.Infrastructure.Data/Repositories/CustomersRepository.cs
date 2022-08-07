@@ -33,18 +33,6 @@ namespace Messager.Customers.Infrastructure.Data.Repositories
             await FindAll(false)
             .ToListAsync();
 
-        public IEnumerable<Customer> GetCustomersInfoByUserIds(IEnumerable<Guid> userIds) =>
-            FindAll(false).AsEnumerable()
-            .Where(c => userIds.Where(u => u.Equals(c.UserId)).Any())
-            .ToList();
-
-            //await FindAll(false)
-            //.Join(userIds, 
-            //    x => x.UserId, y => y, (s1, s2) => new { userId = s2, customer = s1})
-            //.Where(x => x.userId.Equals(x.customer.UserId))
-            //.Select(x => x.customer)
-            //.ToListAsync();
-
         public IQueryable<Customer> GetCustomersInfoByUserIdsAsync1() =>
             FindAll(false);
 

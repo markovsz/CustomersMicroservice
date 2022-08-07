@@ -45,9 +45,12 @@ namespace Messager.Customers.Infrastructure.Services.Services
             return customerDto;
         }
         
-        public IEnumerable<CustomerForReadMinimizedDto> GetMinimizedCustomersInfoByUserIds(IEnumerable<Guid> userIds)
+        public async Task<IEnumerable<CustomerForReadMinimizedDto>> GetMinimizedCustomersInfoByUserIdsAsync(IEnumerable<Guid> userIds)
         {
-            var customers = _customerManager.Customers.GetCustomersInfoByUserIds(userIds);
+            var customers = new List<Customer>();
+            foreach(var userId in userIds)
+                customers.Add(await _customerManager.Customers.GetCustomerByUserIdAsync(userId, false));
+
             var customersDto = _mapper.Map<IEnumerable<CustomerForReadMinimizedDto>>(customers);
             return customersDto;
         }

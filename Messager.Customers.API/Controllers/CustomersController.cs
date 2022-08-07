@@ -33,9 +33,9 @@ namespace Messager.Customers.API.Controllers
 
         [Authorize(Roles = "Administrator,Customer")]
         [HttpPost("min")]
-        public IActionResult GetMinimizedCustomersAsync([FromBody] IEnumerable<Guid> userIds)
+        public async Task<IActionResult> GetMinimizedCustomersAsync([FromBody] IEnumerable<Guid> userIds)
         {
-            var customers = _customersService.GetMinimizedCustomersInfoByUserIds(userIds);
+            var customers = await _customersService.GetMinimizedCustomersInfoByUserIdsAsync(userIds);
             return Ok(customers);
         }
 
