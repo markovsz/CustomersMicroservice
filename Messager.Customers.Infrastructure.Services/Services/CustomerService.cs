@@ -49,7 +49,11 @@ namespace Messager.Customers.Infrastructure.Services.Services
         {
             var customers = new List<Customer>();
             foreach(var userId in userIds)
-                customers.Add(await _customerManager.Customers.GetCustomerByUserIdAsync(userId, false));
+            {
+                var customer = await _customerManager.Customers.GetCustomerByUserIdAsync(userId, false);
+                if(customer is not null)
+                    customers.Add(customer);
+            }
 
             var customersDto = _mapper.Map<IEnumerable<CustomerForReadMinimizedDto>>(customers);
             return customersDto;
