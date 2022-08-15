@@ -12,5 +12,6 @@ namespace Messager.Customers.Domain.Core.Models
         public string Patronymic { get; set; }
         public DateTime BirthDate { get; set; }
         public string PhoneNumber { get; set; }
+        public string IconImageSrc { get; set; }
     }
 }
