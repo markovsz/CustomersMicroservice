@@ -23,7 +23,7 @@ namespace Messager.Customers.API.Controllers
 
 
         [Authorize(Roles = "Administrator,Customer")]
-        [HttpGet("all")]
+        [HttpGet("")]
         public async Task<IActionResult> GetCustomersAsync()//TODO: pagination
         {
             var customers = await _customersService.GetCustomersAsync();
@@ -44,17 +44,27 @@ namespace Messager.Customers.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCustomerInfoByUserIdAsync(Guid userId)
         {
-            var customer = await _customersService.GetCustomerByUserIdAsync(userId, false);
+            var customer = await _customersService.GetCustomerInfoByUserIdAsync(userId, false);
             return Ok(customer);
         }
 
 
         [Authorize(Roles = "Administrator,Customer")]
         [ServiceFilter(typeof(ExtractUserIdFilter))]
-        [HttpGet("", Name = "GetCustomer")]
+        [HttpGet("profile", Name = "GetCustomerProfile")]
         public async Task<IActionResult> GetCustomerInfoAsync(Guid userId)
         {
-            var customer = await _customersService.GetCustomerByUserIdAsync(userId, false);
+            var customer = await _customersService.GetCustomerInfoByUserIdAsync(userId, false);
+            return Ok(customer);
+        }
+
+
+        [Authorize(Roles = "Administrator,Customer")]
+        [ServiceFilter(typeof(ExtractUserIdFilter))]
+        [HttpGet("profile-min")]
+        public async Task<IActionResult> GetCustomerMinimizedInfoAsync(Guid userId)
+        {
+            var customer = await _customersService.GetMinimizedCustomerInfoByUserIdAsync(userId, false);
             return Ok(customer);
         }
 
