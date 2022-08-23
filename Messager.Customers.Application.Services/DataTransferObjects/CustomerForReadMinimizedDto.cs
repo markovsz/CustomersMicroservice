@@ -10,6 +10,6 @@ namespace Messager.Customers.Application.Services.DataTransferObjects
     {
         public Guid UserId { get; set; }
         public string UserName { get; set; }
-        public string IconImageSrc { get; set; }
+        public Guid IconId { get; set; }
     }
 }
