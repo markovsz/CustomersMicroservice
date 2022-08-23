@@ -9,6 +9,7 @@ namespace Messager.Customers.Infrastructure.Data
     {
         private RepositoryContext _context;
         private ICustomersRepository _customersRepository;
+        private IIconsRepository _iconsRepository;
 
         public RepositoryManager(RepositoryContext context)
         {
@@ -22,6 +23,16 @@ namespace Messager.Customers.Infrastructure.Data
                 if (_customersRepository is null)
                     _customersRepository = new CustomersRepository(_context);
                 return _customersRepository;
+            }
+        }
+
+        public IIconsRepository Icons
+        {
+            get
+            {
+                if (_iconsRepository is null)
+                    _iconsRepository = new IconsRepository(_context);
+                return _iconsRepository;
             }
         }
 
