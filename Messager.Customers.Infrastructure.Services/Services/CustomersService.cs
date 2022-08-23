@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace Messager.Customers.Infrastructure.Services.Services
 {
-    public class CustomerService : ICustomersService
+    public class CustomersService : ICustomersService
     {
         private IRepositoryManager _customerManager;
         private IMapper _mapper;
 
-        public CustomerService(IRepositoryManager customerManager, IMapper mapper)
+        public CustomersService(IRepositoryManager customerManager, IMapper mapper)
         {
             _customerManager = customerManager;
             _mapper = mapper;
@@ -49,7 +49,7 @@ namespace Messager.Customers.Infrastructure.Services.Services
             await _customerManager.SaveAsync();
         }
 
-        public async Task<CustomerForReadPrivateInfoDto> GetCustomerByUserIdAsync(Guid userId, bool trackChanges)
+        public async Task<CustomerForReadPrivateInfoDto> GetCustomerInfoByUserIdAsync(Guid userId, bool trackChanges)
         {
             var customer = await _customerManager.Customers.GetCustomerByUserIdAsync(userId, trackChanges);
             if (customer is null)
@@ -57,7 +57,15 @@ namespace Messager.Customers.Infrastructure.Services.Services
             var customerDto = _mapper.Map<CustomerForReadPrivateInfoDto>(customer);
             return customerDto;
         }
-        
+        public async Task<CustomerForReadMinimizedDto> GetMinimizedCustomerInfoByUserIdAsync(Guid userId, bool trackChanges)
+        {
+            var customer = await _customerManager.Customers.GetCustomerByUserIdAsync(userId, trackChanges);
+            if (customer is null)
+                throw new EntityDoesntExistException<Customer>();
+            var customerDto = _mapper.Map<CustomerForReadMinimizedDto>(customer);
+            return customerDto;
+        }
+
         public async Task<IEnumerable<CustomerForReadMinimizedDto>> GetMinimizedCustomersInfoByUserIdsAsync(IEnumerable<Guid> userIds)
         {
             var customers = new List<Customer>();
