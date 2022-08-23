@@ -27,12 +27,14 @@ namespace Messager.Customers.API
         {
             services.AddScoped<IRepositoryManager, RepositoryManager>();
             services.AddScoped<ICustomersRepository, CustomersRepository>();
+            services.AddScoped<IIconsRepository, IconsRepository>();
         }
 
         public static void ConfigureServices(this IServiceCollection services)
         {
-            services.AddScoped<ICustomersService, CustomerService>();
+            services.AddScoped<ICustomersService, CustomersService>();
             services.AddScoped<ILoggerService, LoggerService>();
+            services.AddScoped<IIconsService, IconsService>();
         }
 
         public static void ConfigureFilters(this IServiceCollection services)
