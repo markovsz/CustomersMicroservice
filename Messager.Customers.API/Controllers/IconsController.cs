@@ -31,9 +31,9 @@ namespace Messager.Customers.API.Controllers
 
         [Authorize]
         [HttpPost("")]
-        public async Task<IActionResult> PostIcon([FromBody] byte[] iconBytes)
+        public async Task<IActionResult> PostIcon([FromBody] string iconBase64)
         {
-            var iconId = await _iconsService.PostIconAsync(iconBytes);
+            var iconId = await _iconsService.PostIconAsync(iconBase64);
             return Created($"api/Icons/{iconId}", iconId);
         }
     }

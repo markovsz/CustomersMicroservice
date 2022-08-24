@@ -9,6 +9,6 @@ namespace Messager.Customers.Application.Services.Services
     public interface IIconsService
     {
         Task<string> GetIconAsync(Guid iconId);
-        Task<Guid> PostIconAsync(byte[] iconBytes);
+        Task<Guid> PostIconAsync(string iconBase64);
     }
 }
