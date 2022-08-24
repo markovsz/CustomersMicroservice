@@ -1,11 +1,9 @@
 ﻿using Messager.Customers.Application.Services.Services;
+using Messager.Customers.Domain.Core.Models;
 using Messager.Customers.Domain.Interfaces;
-using Messager.Customers.Domain.Interfaces.Repositories;
 using Messager.Customers.Infrastructure.Services.Exceptions;
 using Microsoft.Extensions.Configuration;
 using System;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -36,14 +34,13 @@ namespace Messager.Customers.Infrastructure.Services.Services
             return iconBase64;
         }
 
-        public async Task<Guid> PostIconAsync(byte[] imageBytes)
+        public async Task<Guid> PostIconAsync(string iconBase64)
         {
-            MemoryStream stream = new MemoryStream(imageBytes);
-            Image img = Image.FromStream(stream); //only on Windows
-            Domain.Core.Models.Icon icon = new Domain.Core.Models.Icon();
+            Icon icon = new Icon();
             await _repositoryManager.Icons.CreateIconAsync(icon);
             await _repositoryManager.SaveAsync();
-            img.Save(_iconsPath + icon.Id.ToString() + ".png", ImageFormat.Png); //only on Windows
+            string iconPath = _iconsPath + icon.Id.ToString() + ".png";
+            File.WriteAllBytes(iconPath, Convert.FromBase64String(iconBase64));
             return icon.Id;
         }
     }
