@@ -17,7 +17,7 @@ namespace Messager.Customers.Infrastructure.Services.Services
         public IconsService(IRepositoryManager repositoryManager, IConfiguration configuration)
         {
             _repositoryManager = repositoryManager;
-            _iconsPath = configuration.GetSection("IconsPath").Value;
+            _iconsPath = configuration.GetSection("Icons").GetSection("folderPath").Value;
         }
 
         public async Task<string> GetIconAsync(Guid iconId)
