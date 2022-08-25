@@ -1,3 +1,4 @@
+using Messager.Customers.API.Middlewares;
 using Messager.Customers.Infrastructure.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -38,6 +39,8 @@ namespace Messager.Customers.API
             }
 
             app.UseRouting();
+
+            app.UseMiddleware<CookieAuthorizationMiddleware>();
 
             app.UseAuthentication();
             app.UseAuthorization();
