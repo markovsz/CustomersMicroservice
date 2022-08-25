@@ -23,6 +23,13 @@ namespace Messager.Customers.Infrastructure.Data.Configurations
             builder
                 .Property(i => i.Id)
                 .ValueGeneratedOnAdd();
+
+            builder.HasData(
+                new Icon
+                {
+                    Id = Guid.Parse(_configuration.GetSection("Icons").GetSection("placeholderName").Value)
+                }
+            );
         }
     }
 }
