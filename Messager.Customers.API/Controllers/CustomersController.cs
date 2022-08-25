@@ -23,6 +23,16 @@ namespace Messager.Customers.API.Controllers
 
 
         [Authorize(Roles = "Administrator,Customer")]
+        [ServiceFilter(typeof(ExtractUserIdFilter))]
+        [HttpPost("")]
+        public async Task<IActionResult> CreateCustomerAsync(Guid userId, CustomerForCreateDto customerDto)
+        {
+            var createdUser = await _customersService.CreateCustomerAsync(userId, customerDto);
+            return CreatedAtRoute("GetCustomerProfile", createdUser);
+        }
+
+
+        [Authorize(Roles = "Administrator,Customer")]
         [HttpGet("")]
         public async Task<IActionResult> GetCustomersAsync()//TODO: pagination
         {
