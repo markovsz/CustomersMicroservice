@@ -28,7 +28,7 @@ namespace Messager.Customers.API.Controllers
         public async Task<IActionResult> CreateCustomerAsync(Guid userId, CustomerForCreateDto customerDto)
         {
             var createdUser = await _customersService.CreateCustomerAsync(userId, customerDto);
-            return CreatedAtRoute("GetCustomerProfile", createdUser);
+            return Created($"{createdUser.UserId}", createdUser);
         }
 
 
